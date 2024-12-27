@@ -573,6 +573,10 @@ advanced_settings() {
     echo -e "${ROOTSSH}${BOLD}${DGN}Root SSH Access: ${BGN}$SSH${CL}"
   fi
 
+  if [[ "${SSH}" == "yes" ]]; then
+    SSH_AUTHORIZED_KEY=$(whiptail --backtitle "Proxmox VE Helper Scripts" --inputbox "SSH authorized key (leave blank for none)" 8 58 --title "SSH Key" 3>&1 1>&2 2>&3)
+  fi
+
   if (whiptail --backtitle "Proxmox VE Helper Scripts" --defaultno --title "VERBOSE MODE" --yesno "Enable Verbose Mode?" 10 58); then
     VERB="yes"
   else
@@ -736,6 +740,7 @@ build_container() {
   export PASSWORD="$PW"
   export VERBOSE="$VERB"
   export SSH_ROOT="${SSH}"
+  export SSH_AUTHORIZED_KEY="${SSH_AUTHORIZED_KEY}"
   export CTID="$CT_ID"
   export CTTYPE="$CT_TYPE"
   export PCT_OSTYPE="$var_os"
